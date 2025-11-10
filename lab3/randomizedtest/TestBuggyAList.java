@@ -23,14 +23,12 @@ public class TestBuggyAList {
                 int randVal = StdRandom.uniform(0, 100);
                 L.addLast(randVal);
                 L2.addLast(randVal);
-                System.out.println("addLast(" + randVal + ")");
             } else if (operationNumber == 1) {
                 // size
 
                 int size1 = L.size();
                 int size2 = L2.size();
-                System.out.println("size: " + size1);
-                System.out.println("size: " + size2);
+
             } else if (operationNumber == 2) {
                 if (L.size() > 0) {
                     L.getLast();
