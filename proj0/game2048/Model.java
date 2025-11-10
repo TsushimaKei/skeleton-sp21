@@ -116,21 +116,21 @@ public class Model extends Observable {
         board.setViewingPerspective(side);
 
         for (int col = 0; col < board.size(); col += 1) {
-            boolean[] hasMergedThisTurn = new boolean[board.size()];
-            for (int row = board.size()-2; row >= 0; row -= 1) {
-                Tile t = board.tile(col, row);
+            boolean[] hasMergedThisTurn = new boolean[board.size()]; //记住已经合并过的方块
+            for (int row = board.size()-2; row >= 0; row -= 1) { //从上往下数第二行
+                Tile t = board.tile(col, row);                   // 当前这一格的瓦片
                 int k = row + 1;
-                if (board.tile(col, row) != null) {
-                    while (true) {
-                        if (k >= board.size()){
+                if (board.tile(col, row) != null) {              // 当这格瓦片有数字时
+                    while (true) {                               // 循环遍历判断可以网上移动到第几格（k）
+                        if (k >= board.size()){                  //如果超出了棋盘外立马返回到棋盘内
                             k--;
                             break;
                         } else {
-                            if (board.tile(col, k) == null) {
+                            if (board.tile(col, k) == null) {//如果上一格是空，说明可以移动，并进入下一个循环进行判断上上格
                                 k++;
                                 continue;
                             }
-                            if (hasMergedThisTurn[k]){
+                            if (hasMergedThisTurn[k]){       //如果上一格是已经合并过的瓦片则停止移动
                                 k--;
                                 break;
                             }

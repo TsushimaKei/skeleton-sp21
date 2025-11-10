@@ -1,4 +1,4 @@
-package timingtest;
+package randomizedtest;
 
 /** Array based list.
  *  @author Josh Hug
