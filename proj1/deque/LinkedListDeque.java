@@ -28,6 +28,16 @@ public class LinkedListDeque<T> {
         size = 0;
 
     }
+
+    // 构造函数
+    public LinkedListDeque(T item) {
+        sentinel = new Node(null, null, null);
+        sentinel.next = sentinel;
+        sentinel.prev = sentinel;
+
+        addFirst(item);
+        size = 1;
+    }
     // 将类型为 T 的元素添加到双端队列的前端。可以假设 item 永远不会是 null 。
     public void addFirst(T item) {
         Node oldFirst = sentinel.next;
@@ -108,4 +118,14 @@ public class LinkedListDeque<T> {
         return L.item;
     }
 
+    public T getRecursive(int index) {
+        
+    }
+
+    public static void main(String[] args) {
+        LinkedListDeque<Integer> L = new LinkedListDeque<>(1);
+        L.addFirst(2);
+        L.addFirst(1221);
+        L.addLast(31);
+    }
 }
