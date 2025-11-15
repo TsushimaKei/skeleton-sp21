@@ -3,6 +3,7 @@ package deque;
 import org.w3c.dom.Node;
 
 import java.security.DrbgParameters;
+import java.util.Iterator;
 
 public class LinkedListDeque<T> {
 
@@ -118,14 +119,12 @@ public class LinkedListDeque<T> {
         return L.item;
     }
 
-    public T getRecursive(int index) {
+    public boolean equals(Object o) {
         
     }
 
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> L = new LinkedListDeque<>(1);
-        L.addFirst(2);
-        L.addFirst(1221);
-        L.addLast(31);
+    public Iterator<T> iterator() {
+
     }
+
 }
