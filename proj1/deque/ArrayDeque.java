@@ -1,7 +1,7 @@
 package deque;
 
-import java.io.FileReader;
-import java.util.Iterator;
+
+
 
 public class ArrayDeque<T> {
     private T[] items;
@@ -61,7 +61,7 @@ public class ArrayDeque<T> {
     /** 获取第i位元素. */
     public T get(int i) {
 
-        return items[i];
+        return items[nextFirst + i + 1];
     }
 
     /** 返回数组元素个数 */
@@ -108,14 +108,6 @@ public class ArrayDeque<T> {
         for (int i = 0; i < size; i++) {
             System.out.print(items[i]);
         }
-    }
-
-    public boolean equals(Object o) {
-
-    }
-
-    public Iterator<T> iterator() {
-
     }
 
 }

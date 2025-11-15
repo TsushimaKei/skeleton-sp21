@@ -112,6 +112,9 @@ public class LinkedListDeque<T> {
 
     public T get(int index) {
         Node L = sentinel.next;
+        if (index > size) {
+            return null;
+        }
         while (index > 0) {
             index -= 1;
             L = L.next;
@@ -119,12 +122,5 @@ public class LinkedListDeque<T> {
         return L.item;
     }
 
-    public boolean equals(Object o) {
-        
-    }
-
-    public Iterator<T> iterator() {
-
-    }
 
 }
