@@ -100,7 +100,7 @@ public class ArrayDeque<T> {
     public void printDeque() {
         int tmp = (nextFirst + 1) % items.length;
         for (int i = 0; i < size; i++) {
-            System.out.print(tmp+1);
+            System.out.print(items[tmp+1] + " ");
             tmp = (tmp + 1) % items.length;
         }
         System.out.println();
