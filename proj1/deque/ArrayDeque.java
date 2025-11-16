@@ -76,10 +76,16 @@ public class ArrayDeque<T> {
     /** 删除最后一位元素
      * 返回删除的元素. */
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         items[nextLast-1] = null;
         nextLast = (nextLast - 1 + items.length) % items.length;
     }
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         items[nextFirst + 1] = null;
         nextFirst = (nextFirst + 1) % items.length;
     }
