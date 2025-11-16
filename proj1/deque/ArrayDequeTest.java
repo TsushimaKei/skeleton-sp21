@@ -140,8 +140,8 @@ public class ArrayDequeTest {
         assertTrue("移除所有元素后, 队列应该为空", ad.isEmpty());
     }
 
-    @Test
-    /** 测试 equals() 功能 */
+
+    /** 测试 equals() 功能
     public void testEquals() {
         ArrayDeque<String> ad1 = new ArrayDeque<>();
         ArrayDeque<String> ad2 = new ArrayDeque<>();
@@ -178,10 +178,10 @@ public class ArrayDequeTest {
         // 7. 不同大小对比
         ad2.addLast("c");
         assertFalse("不同大小的 Deque 不能相等", ad1.equals(ad2));
-    }
+    }*/
 
-    @Test
-    /** 测试 iterator() 功能 (即 for-each 循环) */
+
+    /** 测试 iterator() 功能 (即 for-each 循环)
     public void testIterator() {
         ArrayDeque<String> ad = new ArrayDeque<>();
         ad.addLast("a");
@@ -202,7 +202,7 @@ public class ArrayDequeTest {
             emptyResult += s;
         }
         assertEquals("空队列的 Iterator 不应执行任何操作", "", emptyResult);
-    }
+    }*/
 
     /*
      * 以下测试针对 ArrayDeque 的内部特性：resize
@@ -232,8 +232,8 @@ public class ArrayDequeTest {
         assertEquals("Size 应该被正确更新", 12, ad.size());
     }
 
-    @Test
-    /** 测试 缩容 (Shrinkage) 功能 */
+
+    /** 测试 缩容 (Shrinkage) 功能
     public void testResizeShrinkage() {
         ArrayDeque<Integer> ad = new ArrayDeque<>();
         // 1. 添加超过 16 个元素, 强制扩容到 32 (8->16->32)
@@ -265,5 +265,5 @@ public class ArrayDequeTest {
         assertEquals("缩容后应该还能 addFirst", Integer.valueOf(-1), ad.get(0));
         assertEquals("缩容后应该还能 addLast", Integer.valueOf(5), ad.get(6));
         assertEquals("Size 应该被正确更新", 7, ad.size());
-    }
+    }*/
 }

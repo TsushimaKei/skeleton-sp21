@@ -82,6 +82,7 @@ public class ArrayDeque<T> {
         T del = items[nextLast-1];
         items[nextLast-1] = null;
         nextLast = (nextLast - 1 + items.length) % items.length;
+        size = size - 1;
         return del;
     }
     public T removeFirst() {
@@ -91,6 +92,7 @@ public class ArrayDeque<T> {
         T del = items[nextFirst+1];
         items[nextFirst + 1] = null;
         nextFirst = (nextFirst + 1) % items.length;
+        size = size-1;
         return del;
     }
     /** 检测数组是否为空 */
