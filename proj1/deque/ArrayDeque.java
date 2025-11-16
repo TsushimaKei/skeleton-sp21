@@ -1,10 +1,9 @@
 package deque;
 
 
-import java.util.Deque;
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Iterable<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
     private int nextFirst;
@@ -16,6 +15,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         nextLast = 5;
     }
     /** 将基础数组的大小调整为目标容量。. */
+
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int tmp = (nextFirst + 1) % items.length;
@@ -30,6 +30,7 @@ public class ArrayDeque<T> implements Iterable<T> {
     }
 
     /** 在末尾添加元素 */
+    @Override
     public void addLast(T x) {
         if (size == items.length) {
             resize(size * 2);
@@ -39,6 +40,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         nextLast = (nextLast + 1) % items.length;
     }
     /** 在首位添加元素*/
+    @Override
     public void addFirst(T x) {
         if (size == items.length) {
             resize(size * 2);
@@ -50,6 +52,7 @@ public class ArrayDeque<T> implements Iterable<T> {
     }
 
     /** 获取最后一位元素. */
+
     public T getLast() {
 
         return items[(nextLast - 1 + items.length) % items.length];
@@ -59,6 +62,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         return items[first];
     }
     /** 获取第i位元素. */
+    @Override
     public T get(int i) {
         int first = (nextFirst + 1 ) % items.length;
         int targetIndex = (first + i + items.length) % items.length;
@@ -66,6 +70,7 @@ public class ArrayDeque<T> implements Iterable<T> {
     }
 
     /** 返回数组元素个数 */
+    @Override
     public int size() {
 
         return size;
@@ -73,6 +78,7 @@ public class ArrayDeque<T> implements Iterable<T> {
 
     /** 删除最后一位元素
      * 返回删除的元素. */
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -86,6 +92,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         size = size - 1;
         return del;
     }
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -100,11 +107,11 @@ public class ArrayDeque<T> implements Iterable<T> {
         size = size-1;
         return del;
     }
-    /** 检测数组是否为空 */
+    /** 检测数组是否为空
     public boolean isEmpty() {
         return size == 0;
-    }
-    /** 输出数组元素 */
+     }*/
+    @Override
     public void printDeque() {
         int tmp = (nextFirst + 1) % items.length;
         for (int i = 0; i < size; i++) {

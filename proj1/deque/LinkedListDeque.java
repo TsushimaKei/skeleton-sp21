@@ -5,7 +5,7 @@ import org.w3c.dom.Node;
 import java.security.DrbgParameters;
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Iterable<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public class Node {
         public Node next;
@@ -39,6 +39,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         size = 1;
     }
     // 将类型为 T 的元素添加到双端队列的前端。可以假设 item 永远不会是 null 。
+    @Override
     public void addFirst(T item) {
         Node oldFirst = sentinel.next;
 
@@ -51,6 +52,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         size += 1;
     }
     // 将类型为 T 的元素添加到双端队列的后端。可以假设 item 永远不会是 null 。
+    @Override
     public void addLast(T item) {
         Node oldFirst = sentinel.prev;
 
@@ -61,17 +63,17 @@ public class LinkedListDeque<T> implements Iterable<T> {
         size += 1;
     }
 
-    public boolean isEmpty() {
+    /**public boolean isEmpty() {
         if (sentinel.next == sentinel) {
             return true;
         }
         return false;
-    }
-
+    }*/
+    @Override
     public int size() {
         return size;
     }
-
+    @Override
     public void printDeque() {
         Node L = sentinel.next;
         while (L != sentinel) {
@@ -80,7 +82,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         }
         System.out.println();
     }
-
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -92,7 +94,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         size -= 1;
         return L.item;
     }
-
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -108,7 +110,7 @@ public class LinkedListDeque<T> implements Iterable<T> {
         size -= 1;
         return  L.item;
     }
-
+    @Override
     public T get(int index) {
         Node L = sentinel.next;
         if (index > size || index < 0) {
@@ -165,5 +167,52 @@ public class LinkedListDeque<T> implements Iterable<T> {
 
     public Iterator<T> iterator() {
         return new LinkdeListDequeIterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        // 1. 身份检查 (检查是否是同一个内存地址)
+        if (this == o) {
+            return true;
+        }
+
+        // 2. null 检查
+        if (o == null) {
+            return false;
+        }
+
+        // 3. 类型检查 (既然我们只关心 ArrayDeque, 这样检查是安全的)
+        if (!(o instanceof LinkedListDeque)) {
+            return false;
+        }
+
+        // 4. 类型转换 (现在这是安全的)
+        ArrayDeque<?> other = (ArrayDeque<?>) o;
+
+        // 5. 尺寸检查
+        if (this.size() != other.size()) {
+            return false;
+        }
+
+        // 6. (【关键修复】) 必须用 get(i) 按顺序比较！
+        Iterator<T> thisIter = this.iterator();
+        Iterator<?> otherIter = other.iterator(); //
+
+        while (thisIter.hasNext() && otherIter.hasNext()) {
+            T thisElement = thisIter.next();
+            Object otherElement = otherIter.next();
+
+            // "null 安全" 的比较
+            if (thisElement == null) {
+                if (otherElement != null) {
+                    return false; // this 是 null, other 不是
+                }
+            } else if (!thisElement.equals(otherElement)) {
+                return false; // this 不是 null, 但与 other 不相等
+            }
+        }
+
+        // 7. 所有检查都通过
+        return true;
     }
 }
