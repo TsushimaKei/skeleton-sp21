@@ -79,15 +79,19 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
+        T del = items[nextLast-1];
         items[nextLast-1] = null;
         nextLast = (nextLast - 1 + items.length) % items.length;
+        return del;
     }
     public T removeFirst() {
         if (isEmpty()) {
             return null;
         }
+        T del = items[nextFirst+1];
         items[nextFirst + 1] = null;
         nextFirst = (nextFirst + 1) % items.length;
+        return del;
     }
     /** 检测数组是否为空 */
     public boolean isEmpty() {
