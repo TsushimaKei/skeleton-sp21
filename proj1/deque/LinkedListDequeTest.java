@@ -139,5 +139,208 @@ public class LinkedListDequeTest {
 
 
     }
+    @Test
+    /** 测试 isEmpty() 功能 和 构造函数() */
+    public void testIsEmpty() {
+        // 1. 测试新创建的 Deque
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+        assertTrue("一个新创建的 Deque 应该为空 (isEmpty() == true)", lld.isEmpty());
+
+        // 2. 测试添加元素后
+        lld.addFirst(5);
+        assertFalse("添加一个元素后, Deque 不应为空 (isEmpty() == false)", lld.isEmpty());
+
+        // 3. 测试移除元素后
+        lld.removeFirst();
+        assertTrue("移除所有元素后, Deque 应该再次为空", lld.isEmpty());
+    }
+
+    @Test
+    /** 测试 size() 功能 */
+    public void testSize() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+        assertEquals("一个新创建的 Deque 的 size 应该是 0", 0, lld.size());
+
+        lld.addFirst(5);
+        assertEquals("添加一个元素后, size 应该是 1", 1, lld.size());
+
+        lld.addLast(10);
+        assertEquals("添加两个元素后, size 应该是 2", 2, lld.size());
+
+        lld.removeLast();
+        assertEquals("移除一个元素后, size 应该变回 1", 1, lld.size());
+
+        lld.removeFirst();
+        assertEquals("移除所有元素后, size 应该变回 0", 0, lld.size());
+    }
+
+    @Test
+    /** 测试 addFirst() 功能 */
+    public void testAddFirst() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+        lld.addFirst(10); // 队列: [10]
+        assertEquals("addFirst 应将元素添加到队列头部", Integer.valueOf(10), lld.get(0));
+
+        lld.addFirst(5);  // 队列: [5, 10]
+        assertEquals("addFirst 应更新队列头部", Integer.valueOf(5), lld.get(0));
+        assertEquals("addFirst 应将旧的头部元素向后推", Integer.valueOf(10), lld.get(1));
+        assertEquals("Size 应被正确更新", 2, lld.size());
+    }
+
+    @Test
+    /** 测试 addLast() 功能 */
+    public void testAddLast() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+        lld.addLast(10); // 队列: [10]
+        assertEquals("addLast 应将元素添加到队列尾部", Integer.valueOf(10), lld.get(0));
+
+        lld.addLast(20); // 队列: [10, 20]
+        assertEquals("addLast 不应影响头部元素", Integer.valueOf(10), lld.get(0));
+        assertEquals("addLast 应更新队列尾部", Integer.valueOf(20), lld.get(1));
+        assertEquals("Size 应被正确更新", 2, lld.size());
+    }
+
+    @Test
+    /** 测试 get() 功能 */
+    public void testGet() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+
+        // 1. 测试空队列
+        assertNull("在空队列上 Get 应该返回 null", lld.get(0));
+
+        // 2. 测试非空队列
+        lld.addLast(10); // 队列: [10]
+        lld.addLast(20); // 队列: [10, 20]
+        lld.addFirst(5); // 队列: [5, 10, 20]
+
+        assertEquals("get(0) 应该返回第一个元素", Integer.valueOf(5), lld.get(0));
+        assertEquals("get(1) 应该返回第二个元素", Integer.valueOf(10), lld.get(1));
+        assertEquals("get(2) 应该返回第三个元素", Integer.valueOf(20), lld.get(2));
+
+        // 3. 测试越界
+        assertNull("Get 一个负数索引应该返回 null", lld.get(-1));
+        assertNull("Get 一个大于 size 的索引应该返回 null", lld.get(3));
+        assertNull("Get 一个远大于 size 的索引应该返回 null", lld.get(100));
+    }
+
+    @Test
+    /** 测试 getRecursive() 功能 (如果你的 LinkedListDeque 有这个方法) */
+    public void testGetRecursive() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+
+        // 1. 测试空队列
+        // 假设 getRecursive 的行为和 get 一样
+        assertNull("在空队列上 getRecursive 应该返回 null", lld.getRecursive(0));
+
+        // 2. 测试非空队列
+        lld.addLast(10); // 队列: [10]
+        lld.addLast(20); // 队列: [10, 20]
+        lld.addFirst(5); // 队列: [5, 10, 20]
+
+        assertEquals("getRecursive(0) 应该返回第一个元素", Integer.valueOf(5), lld.getRecursive(0));
+        assertEquals("getRecursive(1) 应该返回第二个元素", Integer.valueOf(10), lld.getRecursive(1));
+        assertEquals("getRecursive(2) 应该返回第三个元素", Integer.valueOf(20), lld.getRecursive(2));
+
+        // 3. 测试越界
+        assertNull("getRecursive 一个负数索引应该返回 null", lld.getRecursive(-1));
+        assertNull("getRecursive 一个大于 size 的索引应该返回 null", lld.getRecursive(3));
+    }
+
+    @Test
+    /** 测试 removeFirst() 功能 */
+    public void testRemoveFirst() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+
+        // 1. 测试从空队列移除
+        assertNull("从空队列 removeFirst 应该返回 null", lld.removeFirst());
+
+        // 2. 测试从非空队列移除
+        lld.addLast(10);
+        lld.addLast(20); // 队列: [10, 20]
+        Integer removed = lld.removeFirst(); // 移除 10
+
+        assertEquals("removeFirst 应该返回被移除的元素", Integer.valueOf(10), removed);
+        assertEquals("removeFirst 后 size 应该减少", 1, lld.size());
+        assertEquals("removeFirst 后, 新的头部元素应该是 20", Integer.valueOf(20), lld.get(0));
+
+        // 3. 测试移除到空
+        removed = lld.removeFirst(); // 移除 20
+        assertEquals("removeFirst 应该返回被移除的元素", Integer.valueOf(20), removed);
+        assertTrue("移除所有元素后, 队列应该为空", lld.isEmpty());
+        assertNull("在空队列上 Get 应该返回 null", lld.get(0));
+    }
+
+    @Test
+    /** 测试 removeLast() 功能 */
+    public void testRemoveLast() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+
+        // 1. 测试从空队列移除
+        assertNull("从空队列 removeLast 应该返回 null", lld.removeLast());
+
+        // 2. 测试从非空队列移除
+        lld.addLast(10);
+        lld.addLast(20); // 队列: [10, 20]
+        Integer removed = lld.removeLast(); // 移除 20
+
+        assertEquals("removeLast 应该返回被移除的元素", Integer.valueOf(20), removed);
+        assertEquals("removeLast 后 size 应该减少", 1, lld.size());
+        assertEquals("removeLast 后, 头部元素 10 应该不受影响", Integer.valueOf(10), lld.get(0));
+
+        // 3. 测试移除到空
+        removed = lld.removeLast(); // 移除 10
+        assertEquals("removeLast 应该返回被移除的元素", Integer.valueOf(10), removed);
+        assertTrue("移除所有元素后, 队列应该为空", lld.isEmpty());
+    }
+
+    @Test
+    /**
+     * 测试 iterator() 功能 (即 for-each 循环)
+     * * 1. 检查非空队列是否按正确顺序遍历。
+     * 2. 检查空队列是否根本不遍历。
+     */
+    public void testIterator() {
+
+        // --- 1. 测试非空队列 ---
+
+        LinkedListDeque<String> lld = new LinkedListDeque<>();
+        lld.addLast("a");
+        lld.addLast("b");
+        lld.addLast("c");
+        // 队列现在逻辑上是: [a, b, c]
+
+        // 我们将使用一个“累加器” (accumulator) 字符串来收集结果
+        String result = "";
+
+        // 这个 "for-each" 循环会隐式地：
+        // 1. 调用 lld.iterator() 来获取 LinkedListDequeIterator
+        // 2. 循环调用 hasNext()
+        // 3. 循环调用 next()
+        for (String s : lld) {
+            result += s;
+        }
+
+        // 我们断言结果必须是 "abc"，这证明了
+        // a) hasNext() 在正确的时候停止 (p != sentinel)
+        // b) next() 每次都返回了正确的 item 并移动了 p 指针
+        assertEquals("Iterator 应该按正确顺序 (a, b, c) 遍历", "abc", result);
+
+
+        // --- 2. 测试空队列 ---
+
+        LinkedListDeque<String> lldEmpty = new LinkedListDeque<>();
+        StringBuilder emptyResult = new StringBuilder();
+
+        // 在一个空队列上, hasNext() (即 p != sentinel)
+        // 第一次检查时就应该是 false (因为 p 一开始就是 sentinel.next,
+        // 在空队列里, sentinel.next 就是 sentinel 自己)
+        for (String s : lldEmpty) {
+            emptyResult.append(s); // 这一行永远不应该被执行
+        }
+
+        assertEquals("空队列的 Iterator 不应执行任何操作", "", emptyResult.toString());
+    }
+
+
 }
 

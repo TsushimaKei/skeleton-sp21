@@ -140,48 +140,8 @@ public class ArrayDequeTest {
         assertTrue("移除所有元素后, 队列应该为空", ad.isEmpty());
     }
 
-
-    /** 测试 equals() 功能
-    public void testEquals() {
-        ArrayDeque<String> ad1 = new ArrayDeque<>();
-        ArrayDeque<String> ad2 = new ArrayDeque<>();
-        ArrayDeque<String> ad3 = new ArrayDeque<>();
-        LinkedListDeque<String> lld1 = new LinkedListDeque<>(); // 用于跨实现测试
-
-        ad1.addLast("a");
-        ad1.addLast("b"); // ad1: [a, b]
-        ad2.addLast("a");
-        ad2.addLast("b"); // ad2: [a, b]
-        ad3.addLast("b");
-        ad3.addLast("a"); // ad3: [b, a]
-        lld1.addLast("a");
-        lld1.addLast("b"); // lld1: [a, b]
-
-        // 1. 与自身对比
-        assertTrue("Deque 必须等于它自己 (Reflexive)", ad1.equals(ad1));
-
-        // 2. 相同实现，相同内容
-        assertTrue("内容相同的 ArrayDeque 必须相等", ad1.equals(ad2));
-
-        // 3. 相同实现，不同内容 (顺序)
-        assertFalse("内容或顺序不同的 ArrayDeque 不能相等", ad1.equals(ad3));
-
-        // 4. 不同实现，相同内容 (CS61B 核心要求)
-        assertTrue("ArrayDeque 必须能等于内容相同的 LinkedListDeque", ad1.equals(lld1));
-
-        // 5. 与 null 对比
-        assertFalse("Deque 不能等于 null", ad1.equals(null));
-
-        // 6. 与不同类型的对象对比
-        assertFalse("Deque 不能等于一个字符串", ad1.equals("a string"));
-
-        // 7. 不同大小对比
-        ad2.addLast("c");
-        assertFalse("不同大小的 Deque 不能相等", ad1.equals(ad2));
-    }*/
-
-
-    /** 测试 iterator() 功能 (即 for-each 循环)
+    /**测试 iterator() 功能 (即 for-each 循环)*/
+    @Test
     public void testIterator() {
         ArrayDeque<String> ad = new ArrayDeque<>();
         ad.addLast("a");
@@ -189,20 +149,20 @@ public class ArrayDequeTest {
         ad.addLast("c");
 
         // 1. 测试非空队列
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (String s : ad) { // 这会隐式调用 iterator()
-            result += s;
+            result.append(s);
         }
-        assertEquals("Iterator 应该按正确顺序 (a, b, c) 遍历", "abc", result);
+        assertEquals("Iterator 应该按正确顺序 (a, b, c) 遍历", "abc", result.toString());
 
         // 2. 测试空队列
         ArrayDeque<String> adEmpty = new ArrayDeque<>();
-        String emptyResult = "";
+        StringBuilder emptyResult = new StringBuilder();
         for (String s : adEmpty) {
-            emptyResult += s;
+            emptyResult.append(s);
         }
-        assertEquals("空队列的 Iterator 不应执行任何操作", "", emptyResult);
-    }*/
+        assertEquals("空队列的 Iterator 不应执行任何操作", "", emptyResult.toString());
+    }
 
     /*
      * 以下测试针对 ArrayDeque 的内部特性：resize
@@ -232,38 +192,4 @@ public class ArrayDequeTest {
         assertEquals("Size 应该被正确更新", 12, ad.size());
     }
 
-
-    /** 测试 缩容 (Shrinkage) 功能
-    public void testResizeShrinkage() {
-        ArrayDeque<Integer> ad = new ArrayDeque<>();
-        // 1. 添加超过 16 个元素, 强制扩容到 32 (8->16->32)
-        for (int i = 0; i < 20; i++) {
-            ad.addLast(i);
-        }
-        assertEquals("Size 应该是 20", 20, ad.size());
-
-        // 2. 移除元素, 直到触发缩容
-        // 规范：当 size / capacity < 0.25 且 capacity >= 16 时
-        // 20 -> ... -> 5。 当 size = 5, capacity = 32, (5/32 < 0.25)
-        // 移除 15 个元素
-        for (int i = 0; i < 15; i++) {
-            ad.removeLast();
-        }
-        assertEquals("Size 应该是 5", 5, ad.size());
-
-        // 此时, capacity 应该已经从 32 缩容到 16。
-        // 我们通过检查它是否还能正常工作来验证。
-
-        // 3. 检查剩余元素
-        for (int i = 0; i < 5; i++) {
-            assertEquals("缩容后, get(" + i + ") 应该返回 " + i, Integer.valueOf(i), ad.get(i));
-        }
-
-        // 4. 检查缩容后是否还能添加
-        ad.addFirst(-1); // 队列: [-1, 0, 1, 2, 3, 4]
-        ad.addLast(5);   // 队列: [-1, 0, 1, 2, 3, 4, 5]
-        assertEquals("缩容后应该还能 addFirst", Integer.valueOf(-1), ad.get(0));
-        assertEquals("缩容后应该还能 addLast", Integer.valueOf(5), ad.get(6));
-        assertEquals("Size 应该被正确更新", 7, ad.size());
-    }*/
 }

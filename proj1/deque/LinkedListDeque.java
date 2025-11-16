@@ -5,7 +5,7 @@ import org.w3c.dom.Node;
 import java.security.DrbgParameters;
 import java.util.Iterator;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Iterable<T> {
 
     public class Node {
         public Node next;
@@ -29,7 +29,6 @@ public class LinkedListDeque<T> {
         size = 0;
 
     }
-
     // 构造函数
     public LinkedListDeque(T item) {
         sentinel = new Node(null, null, null);
@@ -112,7 +111,7 @@ public class LinkedListDeque<T> {
 
     public T get(int index) {
         Node L = sentinel.next;
-        if (index > size) {
+        if (index > size || index < 0) {
             return null;
         }
         while (index > 0) {
@@ -123,4 +122,48 @@ public class LinkedListDeque<T> {
     }
 
 
+
+
+    public T getRecursive(int index) {
+        // 1. 边界检查 (正确的检查)
+        if (index < 0 || index >= size) {
+            return null;
+        }
+
+        // 2. 发起递归调用 (从第一个真实节点开始)
+        return getRecursiveHelper(index, sentinel.next);
+    }
+    private T getRecursiveHelper(int count, Node currentNode) {
+        // Base Case (基本情况): 倒数到 0 了
+        if (count == 0) {
+            return currentNode.item;
+        }
+
+        // Recursive Step (递归步骤):
+        // 没到 0, 就让“下一个节点”去找“count - 1”
+        return getRecursiveHelper(count - 1, currentNode.next);
+    }
+
+    private class LinkdeListDequeIterator implements Iterator<T> {
+        private Node P;
+        LinkdeListDequeIterator() {
+            P = sentinel.next;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return P != sentinel;
+        }
+        public T next() {
+            T itemToReturn = P.item;
+            // 2. 将我们的逻辑索引向前移动一位
+            P = P.next;
+            // 3. 返回元素
+            return itemToReturn;
+        }
+    }
+
+    public Iterator<T> iterator() {
+        return new LinkdeListDequeIterator();
+    }
 }
