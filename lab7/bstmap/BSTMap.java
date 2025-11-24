@@ -141,8 +141,7 @@ public class BSTMap<K extends Comparable<K>, V>  implements Map61B<K, V>{
 
         size -= 1;
         V val = get(key);
-        BSTNode tmp = remove(root, key);
-
+        root = remove(root, key);
         return val;
     }
 
