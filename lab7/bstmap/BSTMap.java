@@ -1,7 +1,10 @@
 package bstmap;
 
 import edu.princeton.cs.algs4.BST;
+import edu.princeton.cs.algs4.SET;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -27,7 +30,7 @@ public class BSTMap<K extends Comparable<K>, V>  implements Map61B<K, V>{
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return keySet().iterator();
 
     }
 
@@ -73,7 +76,6 @@ public class BSTMap<K extends Comparable<K>, V>  implements Map61B<K, V>{
         if (root == null) {
             return null;
         }
-
         int cmp = key.compareTo(root.key);
 
         if (cmp > 0) {
@@ -136,14 +138,74 @@ public class BSTMap<K extends Comparable<K>, V>  implements Map61B<K, V>{
 
     @Override
     public V remove(K key){
-        throw new UnsupportedOperationException();
+
+        size -= 1;
+        V val = get(key);
+        BSTNode tmp = remove(root, key);
+
+        return val;
     }
+
+    public BSTNode remove(BSTNode root, K key) {
+        if (root == null) {
+            return null;
+        }
+        int cmp = key.compareTo(root.key);
+        if (cmp > 0) {
+            root.rightNode =  remove(root.rightNode, key);
+        } else if (cmp < 0) {
+            root.leftNode = remove(root.leftNode, key);
+        } else {
+            if (root.leftNode == null) {
+                return root.rightNode;
+            }
+            if (root.rightNode == null) {
+                return root.leftNode;
+            }
+            BSTNode succesor = min(root.rightNode);
+            root.key = succesor.key;
+            root.val = succesor.val;
+            root.rightNode = remove(root.rightNode, succesor.key);
+        }
+        return root;
+    }
+
+    public BSTNode min(BSTNode root) {
+        if (root.leftNode == null) {
+            return root;
+        } else {
+            return min(root.leftNode);
+        }
+    }
+
     @Override
     public V remove(K key, V value){
-        throw new UnsupportedOperationException();
+        V val = get(key);
+        if (val == null) {
+            return null;
+        }
+        if (val.equals(value)) {
+            root = remove(root, key);
+            size -= 1;
+            return val;
+        }
+        return null;
     }
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> set = new HashSet<>();
+
+        addKeys(root, set);
+        return set;
+    }
+    private void addKeys(BSTNode node, Set<K> set) {
+        if (node == null) {
+            return;
+        }
+        addKeys(node.leftNode, set);
+
+        set.add(node.key);
+
+        addKeys(node.rightNode, set);
     }
 }
