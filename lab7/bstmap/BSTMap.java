@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.BST;
 import java.util.Iterator;
 import java.util.Set;
 
-public class BSTMap<K extends Comparable, V>  implements Map61B<K, V>{
+public class BSTMap<K extends Comparable<K>, V>  implements Map61B<K, V>{
 
     private class BSTNode {
         public BSTNode leftNode;
