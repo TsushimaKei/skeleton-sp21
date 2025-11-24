@@ -183,9 +183,9 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        for (int col = 0; col < b.size(); col+=1){
-            for (int row = 0; row < b.size(); row+=1){
-                if (b.tile(col, row) == null){
+        for (int col = 0; col < b.size(); col += 1) {
+            for (int row = 0; row < b.size(); row += 1) {
+                if (b.tile(col, row) == null) {
                     return true;
                 }
             }
@@ -222,19 +222,18 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
-        for (int col = 0; col < b.size(); col+=1){
-            for (int row = 0; row < b.size(); row+=1){
-                if (b.tile(col, row) == null){
+        for (int col = 0; col < b.size(); col += 1) {
+            for (int row = 0; row < b.size(); row += 1) {
+                if (b.tile(col, row) == null) {
                     return true;
                 }
-                if (col < b.size() -1) {
-                    if (b.tile(col+1, row) != null && b.tile(col, row).value() == b.tile(col+1, row).value()) {
+                if (col < b.size() - 1) {
+                    if (b.tile(col + 1, row) != null && b.tile(col, row).value() == b.tile(col + 1, row).value()) {
                         return true;
                     }
-
                 }
-                if (row < b.size() -1) {
-                    if (b.tile(col, row+1) != null && b.tile(col, row).value() == b.tile(col, row+1).value()) {
+                if (row < b.size() - 1) {
+                    if (b.tile(col, row + 1) != null && b.tile(col, row).value() == b.tile(col, row + 1).value()) {
                         return true;
                     }
                 }

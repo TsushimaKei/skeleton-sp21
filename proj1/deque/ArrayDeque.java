@@ -107,10 +107,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         size = size-1;
         return del;
     }
-    /** 检测数组是否为空
-    public boolean isEmpty() {
-        return size == 0;
-     }*/
+
     @Override
     public void printDeque() {
         int tmp = (nextFirst + 1) % items.length;
@@ -135,9 +132,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         public T next() {
             T itemToReturn = get(tmp);
-            // 2. 将我们的逻辑索引向前移动一位
+
             tmp += 1;
-            // 3. 返回元素
+
             return itemToReturn;
         }
     }
@@ -158,12 +155,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
 
-        // 3. 类型检查 (既然我们只关心 ArrayDeque, 这样检查是安全的)
+
         if (!(o instanceof ArrayDeque)) {
             return false;
         }
 
-        // 4. 类型转换 (现在这是安全的)
+
         ArrayDeque<?> other = (ArrayDeque<?>) o;
 
         // 5. 尺寸检查
@@ -171,7 +168,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
 
-        // 6. (【关键修复】) 必须用 get(i) 按顺序比较！
+
         for (int i = 0; i < this.size(); i++) {
             T thisElement = this.get(i);
             Object otherElement = other.get(i);
@@ -179,14 +176,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             // "null 安全" 的比较
             if (thisElement == null) {
                 if (otherElement != null) {
-                    return false; // this 是 null, other 不是
+                    return false;
                 }
             } else if (!thisElement.equals(otherElement)) {
-                return false; // this 不是 null, 但与 other 不相等
+                return false;
             }
         }
 
-        // 7. 所有检查都通过
+
         return true;
     }
 }

@@ -181,20 +181,20 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
 
-        // 3. 类型检查 (既然我们只关心 ArrayDeque, 这样检查是安全的)
+
         if (!(o instanceof LinkedListDeque)) {
             return false;
         }
 
-        // 4. 类型转换 (现在这是安全的)
+
         ArrayDeque<?> other = (ArrayDeque<?>) o;
 
-        // 5. 尺寸检查
+
         if (this.size() != other.size()) {
             return false;
         }
 
-        // 6. (【关键修复】) 必须用 get(i) 按顺序比较！
+
         Iterator<T> thisIter = this.iterator();
         Iterator<?> otherIter = other.iterator(); //
 
@@ -202,17 +202,17 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             T thisElement = thisIter.next();
             Object otherElement = otherIter.next();
 
-            // "null 安全" 的比较
+
             if (thisElement == null) {
                 if (otherElement != null) {
-                    return false; // this 是 null, other 不是
+                    return false;
                 }
             } else if (!thisElement.equals(otherElement)) {
-                return false; // this 不是 null, 但与 other 不相等
+                return false;
             }
         }
 
-        // 7. 所有检查都通过
+
         return true;
     }
 }
