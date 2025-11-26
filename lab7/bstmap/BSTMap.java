@@ -162,6 +162,7 @@ public class BSTMap<K extends Comparable<K>, V>  implements Map61B<K, V>{
                 return root.leftNode;
             }
             BSTNode succesor = min(root.rightNode);
+
             root.key = succesor.key;
             root.val = succesor.val;
             root.rightNode = remove(root.rightNode, succesor.key);
