@@ -20,12 +20,12 @@
 
 STYLEPROG = style61b
 
-JFLAGS = -g -Xlint:unchecked -Xlint:deprecation
+JFLAGS = -g -Xlint:unchecked -Xlint:deprecation -encoding UTF-8
 
 CLASSDIR = ../classes
 
 # See comment in ../Makefile
-PYTHON = python3
+PYTHON = py
 
 RMAKE = "$(MAKE)"
 

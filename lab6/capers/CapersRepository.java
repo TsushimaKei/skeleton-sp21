@@ -54,8 +54,14 @@ public class CapersRepository {
     public static void writeStory(String text) {
         File storyfile = Utils.join(CAPERS_FOLDER, "story");
         String txt = readContentsAsString(storyfile);
-        txt = txt + "\n" + text;
+        if (txt.equals("")) {
+            txt = text;
+        } else {
+            txt = txt + "\n" + text;
+        }
+
         writeContents(storyfile, txt);
+        System.out.print(txt + "\n");
         // TODO
     }
 
@@ -65,13 +71,16 @@ public class CapersRepository {
      * Also prints out the dog's information using toString().
      */
     public static void makeDog(String name, String breed, int age) {
-        if (Dog.fromFile(name) != null) {
+        File dogfile = Utils.join(Dog.DOG_FOLDER, name);
 
+        if (dogfile.exists()) {
             System.out.println("Dog already exists: " + name);
+
         } else {
+
             Dog newdog = new Dog(name, breed, age);
             newdog.saveDog();
-            System.out.println(newdog);
+            System.out.print(newdog.toString() + "\n");
         }
         // TODO
     }
@@ -87,9 +96,10 @@ public class CapersRepository {
         if (dog != null) {
             dog.haveBirthday();
             dog.saveDog();
-            System.out.println(dog);
+            // 强制使用 Linux 换行符
+            System.out.print(dog.toString() + "\n");
         } else {
-            System.out.println("没找到这条狗");
+            System.out.println("Dog not found.");
         }
         // TODO
     }
