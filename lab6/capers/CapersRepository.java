@@ -98,6 +98,8 @@ public class CapersRepository {
             dog.saveDog();
             // 强制使用 Linux 换行符
             System.out.print(dog.toString() + "\n");
+            System.out.print("Happy birthday! Woof! Woof!\n");
+
         } else {
             System.out.println("Dog not found.");
         }
