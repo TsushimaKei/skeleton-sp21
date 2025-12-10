@@ -2,7 +2,10 @@ package gitlet;
 
 // TODO: any imports you need here
 
+import java.io.Serializable;
 import java.util.Date; // TODO: You'll likely use this in this class
+import java.util.HashMap;
+import java.util.SplittableRandom;
 
 /** Represents a gitlet commit object.
  *  TODO: It's a good idea to give a description here of what else this Class
@@ -10,7 +13,7 @@ import java.util.Date; // TODO: You'll likely use this in this class
  *
  *  @author TODO
  */
-public class Commit {
+public class Commit implements Serializable {
     /**
      * TODO: add instance variables here.
      *
@@ -21,6 +24,23 @@ public class Commit {
 
     /** The message of this Commit. */
     private String message;
+
+    private String parent;
+
+    private Date timestamp;
+
+    private HashMap<String, String> map;
+
+    public Commit(String message, String parent, Date timestamp, HashMap<String, String> map) {
+        this.message = message;
+        this.timestamp = timestamp;
+        this.parent = parent;
+        this.map = map;
+    }
+
+    public String getBlobId(String filename) {
+        return map.get(filename);
+    }
 
     /* TODO: fill in the rest of this class. */
 }
