@@ -19,19 +19,20 @@ public class Main {
             case "init":
                 Repository.init();
                 // TODO: handle the `init` command
-                break;
+
             case "add":
                 Repository.add(args[1]);
                 // TODO: handle the `add [filename]` command
-                break;
+
             // TODO: FILL THE REST IN
             case "commit":
                 Repository.commit(args[1]);
-                break;
+
 
             case "rm":
                 Repository.rm(args[1]);
-                break;
+            case "global-log":
+                Repository.globallog();
         }
 
     }
